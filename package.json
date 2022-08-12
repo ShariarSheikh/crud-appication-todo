@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "name": "shariar",
+  "version": "1.0.0",
+  "description": "a crud application with typescript, scss and docker",
+  "main": "app.js",
+  "repository": "https://github.com/ShariarSheikh/crud-appication-todo.git",
+  "author": "shariar",
+  "license": "MIT",
+  "private": true
+}
