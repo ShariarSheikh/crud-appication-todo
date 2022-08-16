@@ -7,4 +7,285 @@
 body {
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
+  font-family: sans-serif;
+}
+
+:root {
+  --shadowColorDefault: black;
+  --shadowColor1: #adbaeb;
+  --shadowColor2: #faa50e;
+  --shadowColor3: #9ce5f4;
+  --shadowColor4: #e8308c;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 100px 10px;
+  width: 100%;
+
+  #editActions {
+    z-index: 100;
+    position: fixed;
+    bottom: 20px;
+    min-height: 65px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid black;
+
+    button {
+      border-radius: 10px;
+      width: 123px;
+      height: 35px;
+      background: rgb(12, 90, 236);
+      color: white;
+      cursor: pointer;
+      margin: 0px 5px;
+      &:hover {
+        background: rgb(10, 87, 231);
+      }
+      &:active {
+        scale: 0.9;
+      }
+    }
+    #deletedBtn {
+      margin-top: 8px;
+      background: red;
+    }
+  }
+
+  .header {
+    width: 100%;
+    position: relative;
+    background: whiteSmoke;
+    border-radius: 10px;
+    padding: 0 10px;
+
+    .header-container {
+      min-height: 80px;
+      display: grid;
+      grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+      grid-gap: 15px;
+      place-content: center;
+
+      input,
+      select {
+        height: 40px;
+        padding: 0 8px;
+        border-radius: 5px;
+        outline: 1px solid black;
+        border: none;
+        background-color: transparent;
+        font-size: 18px;
+      }
+      .inputFile {
+        position: relative;
+        input {
+          opacity: 0;
+          position: absolute;
+          inset: 0;
+          height: 40px;
+          padding: 0 4px;
+          border-radius: 5px;
+          outline: 1px solid black;
+          border: none;
+          background-color: transparent;
+        }
+        .input-file-trigger {
+          position: relative;
+          height: 40px;
+          padding: 0 4px;
+          border: 1px solid black;
+          border-radius: 5px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .imageIcon {
+            width: 20px;
+            height: 20px;
+            color: gray;
+            margin-right: 8px;
+          }
+        }
+      }
+      .createBtn {
+        height: 40px;
+        padding: 0 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        background: linear-gradient(45deg, #4b88df, #4626f1f7);
+        color: white;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        box-shadow: 0px 3px 0px 0px black;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:active {
+          scale: 0.9;
+        }
+      }
+      .editBtn {
+        height: 40px;
+        padding: 0 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        background: ghostwhite;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        box-shadow: 1px 1px 0px 0px black;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        border: 1px solid;
+        &:active {
+          scale: 0.9;
+        }
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+  .errorTag {
+    color: red;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .todo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+
+    .card {
+      position: relative;
+      min-height: 90px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid;
+      transition: all 0.1s ease-in-out;
+
+      .card-img-container {
+        padding: 10px;
+        position: relative;
+        width: 100%;
+        height: 60%;
+        overflow: hidden;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        img {
+          border-radius: 10px;
+          width: 100%;
+          height: 100%;
+        }
+        p {
+          border-radius: 10px;
+          width: 100%;
+          height: 100%;
+          background: rgb(243, 243, 243);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .card-content {
+        padding: 10px;
+        h1 {
+          padding-top: 8px;
+          font-size: 16px;
+          margin-bottom: 7px;
+          color: #45494d;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+      .isSelected {
+        background: green;
+        color: white;
+        font-size: 13px;
+        padding: 4px 5px;
+        position: absolute;
+        right: 2px;
+        bottom: -14px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .shadow-color1 {
+    box-shadow: 4px 9px 0px 0px var(--shadowColor1);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColor1);
+    }
+  }
+  .shadow-color1 {
+    box-shadow: 4px 9px 0px 0px var(--shadowColor1);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColor1);
+    }
+  }
+  .shadow-color2 {
+    box-shadow: 4px 9px 0px 0px var(--shadowColor2);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColor2);
+    }
+  }
+  .shadow-color3 {
+    box-shadow: 4px 9px 0px 0px var(--shadowColor3);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColor3);
+    }
+  }
+  .shadow-color4 {
+    box-shadow: 4px 9px 0px 0px var(--shadowColor4);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColor4);
+    }
+  }
+  .shadow-default {
+    box-shadow: 4px 9px 0px 0px var(--shadowColorDefault);
+    &:hover {
+      box-shadow: 1px 1px 0px 0px var(--shadowColorDefault);
+    }
+  }
+
+  .no-items-found {
+    min-height: 300px;
+    width: 100%;
+    padding: 100px 0px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+  }
+  .display-none {
+    display: none;
+  }
+  .display-block {
+    display: block;
+  }
+  .checkedSvg {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+  }
+  .unCheckedSvg {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+  }
 }

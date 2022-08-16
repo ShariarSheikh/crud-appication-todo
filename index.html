@@ -9,7 +9,43 @@
   </head>
   <body>
     <div id="root">
-      <h1>this is card application</h1>
+
+      <div id="editActions" class="display-none">
+        <button id="selectedBtn">Select</button>
+        <button id="unSelectedBtn">UnSelect</button>
+        <button id="deletedBtn">Delete</button>
+      </div>
+
+      <!-- crud create header options -->
+      <header class="header">
+        <div class="header-container">
+           <input value id="title" type="text" placeholder="Title" />
+        <input id="description" type="text" placeholder="Description" />
+
+        <select id="colorSelection">
+          <option value="none" disabled selected hidden>Add Color</option>
+          <option value="color1">Color1</option>
+          <option value="color2">Color2</option>
+          <option value="color3">Color3</option>
+          <option value="color4">Color4</option>
+        </select>
+        <button id="createBtn" class="createBtn">Create</button>
+        <button id="editBtn" class="editBtn" data-isActivated="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+          </svg>
+        </button>
+        </div>
+      </header>
+
+      <!-- create error show tag -->
+      <p class="errorTag"></p>
+
+      <!-- show curd items container -->
+      <div class="todo-container">
+        
+      </div>
+      </div>
     </div>
     <script src="./src/app.js"></script>
   </body>

@@ -1,6 +1,11 @@
 {
   "devDependencies": {
+    "concurrently": "^7.3.0",
+    "node-sass": "^7.0.1",
     "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "start": "concurrently \"tsc --watch\" \"node-sass -w ./src/scss/styles.scss ./src/scss/styles.css\""
   },
   "name": "shariar",
   "version": "1.0.0",
