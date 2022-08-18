@@ -18,61 +18,60 @@ body {
   --shadowColor4: #e8308c;
 }
 
+// mixin -----------------------------||
+@mixin mq($width) {
+  @media only screen and (min-width: $width) {
+    @content;
+  }
+}
+// mixin -----------------------------||
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 100px 10px;
   width: 100%;
 
-  #editActions {
-    z-index: 100;
-    position: fixed;
-    bottom: 20px;
-    min-height: 65px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    max-width: 300px;
-    width: 100%;
-    border: 1px solid black;
-
-    button {
-      border-radius: 10px;
-      width: 123px;
-      height: 35px;
-      background: rgb(12, 90, 236);
-      color: white;
-      cursor: pointer;
-      margin: 0px 5px;
-      &:hover {
-        background: rgb(10, 87, 231);
-      }
-      &:active {
-        scale: 0.9;
-      }
-    }
-    #deletedBtn {
-      margin-top: 8px;
-      background: red;
-    }
-  }
-
   .header {
     width: 100%;
     position: relative;
     background: whiteSmoke;
     border-radius: 10px;
-    padding: 0 10px;
+    padding: 20px 10px;
+    // @include mq(350px) {
+    //   max-width: 340px;
+    // }
 
     .header-container {
+      width: 100%;
       min-height: 80px;
       display: grid;
-      grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       grid-gap: 15px;
       place-content: center;
 
+      @include mq(768px) {
+        grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+      }
+
+      #title {
+        grid-column: span 1;
+      }
+
+      #description {
+        grid-column: span 2;
+        @include mq(500px) {
+          grid-column: span 1;
+        }
+      }
+
+      #colorSelection {
+        grid-column: span 1;
+      }
+
       input,
       select {
+        width: 100%;
         height: 40px;
         padding: 0 8px;
         border-radius: 5px;
@@ -113,6 +112,7 @@ body {
         }
       }
       .createBtn {
+        min-width: 75px;
         height: 40px;
         padding: 0 5px;
         border-radius: 5px;
@@ -130,6 +130,7 @@ body {
         }
       }
       .editBtn {
+        min-width: 75px;
         height: 40px;
         padding: 0 5px;
         border-radius: 5px;
@@ -162,8 +163,21 @@ body {
   }
   .todo-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
+
+    @include mq(500px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include mq(768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include mq(960px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @include mq(1200px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
 
     .card {
       position: relative;
@@ -172,6 +186,7 @@ body {
       border-radius: 10px;
       border: 1px solid;
       transition: all 0.1s ease-in-out;
+      min-width: 150px;
 
       .card-img-container {
         padding: 10px;
@@ -272,6 +287,12 @@ body {
   .display-block {
     display: block;
   }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .height-0 {
+    height: 0px;
+  }
   .checkedSvg {
     width: 30px;
     height: 30px;
@@ -287,5 +308,114 @@ body {
     right: 5px;
     top: 5px;
     cursor: pointer;
+  }
+
+  #editActions {
+    z-index: 100;
+    position: fixed;
+    bottom: 20px;
+    min-height: 65px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid black;
+
+    button {
+      border-radius: 10px;
+      width: 123px;
+      height: 35px;
+      background: rgb(12, 90, 236);
+      color: white;
+      cursor: pointer;
+      margin: 0px 5px;
+      &:hover {
+        background: rgb(10, 87, 231);
+      }
+      &:active {
+        scale: 0.9;
+      }
+    }
+    #deletedBtn {
+      margin-top: 8px;
+      background: red;
+    }
+  }
+
+  #modal {
+    max-width: 1260px;
+    width: 95%;
+    position: absolute;
+    background: whiteSmoke;
+    bottom: 10vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 0px;
+  }
+
+  #modal-content {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    margin: 15px auto;
+
+    input {
+      margin-top: 10px;
+      height: 35px;
+      width: 100%;
+      border-radius: 4px;
+      outline: none;
+      padding: 0 5px;
+      border: 2px solid #6495ed87;
+    }
+
+    #modal-done-btn {
+      margin-top: 10px;
+      height: 30px;
+      width: 100%;
+      border-radius: 4px;
+      outline: none;
+      border: none;
+      padding: 0 5px;
+      background: #4626f1f7;
+      color: white;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      &:active {
+        scale: 0.9;
+      }
+    }
+
+    #modal-close {
+      height: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+    }
+  }
+  .modal-content-show {
+    position: relative;
+    top: -68vh;
+    background: white;
+    box-shadow: 2px 6px 27px 3px #c3cad8;
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 6px;
+    opacity: 1;
+  }
+  .modal-content-hide {
+    opacity: 0;
+    top: -30vh;
+    width: 0px;
+    height: 0;
+    overflow: hidden;
   }
 }

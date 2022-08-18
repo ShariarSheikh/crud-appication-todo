@@ -20,46 +20,34 @@ body {
   margin: 0 auto;
   padding: 100px 10px;
   width: 100%; }
-  #root #editActions {
-    z-index: 100;
-    position: fixed;
-    bottom: 20px;
-    min-height: 65px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    max-width: 300px;
-    width: 100%;
-    border: 1px solid black; }
-    #root #editActions button {
-      border-radius: 10px;
-      width: 123px;
-      height: 35px;
-      background: #0c5aec;
-      color: white;
-      cursor: pointer;
-      margin: 0px 5px; }
-      #root #editActions button:hover {
-        background: #0a57e7; }
-      #root #editActions button:active {
-        scale: 0.9; }
-    #root #editActions #deletedBtn {
-      margin-top: 8px;
-      background: red; }
   #root .header {
     width: 100%;
     position: relative;
     background: whiteSmoke;
     border-radius: 10px;
-    padding: 0 10px; }
+    padding: 20px 10px; }
     #root .header .header-container {
+      width: 100%;
       min-height: 80px;
       display: grid;
-      grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       grid-gap: 15px;
       place-content: center; }
+      @media only screen and (min-width: 768px) {
+        #root .header .header-container {
+          grid-template-columns: 2fr 2fr 1fr 1fr 1fr; } }
+      #root .header .header-container #title {
+        grid-column: span 1; }
+      #root .header .header-container #description {
+        grid-column: span 2; }
+        @media only screen and (min-width: 500px) {
+          #root .header .header-container #description {
+            grid-column: span 1; } }
+      #root .header .header-container #colorSelection {
+        grid-column: span 1; }
       #root .header .header-container input,
       #root .header .header-container select {
+        width: 100%;
         height: 40px;
         padding: 0 8px;
         border-radius: 5px;
@@ -95,6 +83,7 @@ body {
             color: gray;
             margin-right: 8px; }
       #root .header .header-container .createBtn {
+        min-width: 75px;
         height: 40px;
         padding: 0 5px;
         border-radius: 5px;
@@ -110,6 +99,7 @@ body {
         #root .header .header-container .createBtn:active {
           scale: 0.9; }
       #root .header .header-container .editBtn {
+        min-width: 75px;
         height: 40px;
         padding: 0 5px;
         border-radius: 5px;
@@ -136,15 +126,28 @@ body {
     font-weight: 600; }
   #root .todo-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px; }
+    @media only screen and (min-width: 500px) {
+      #root .todo-container {
+        grid-template-columns: repeat(3, 1fr); } }
+    @media only screen and (min-width: 768px) {
+      #root .todo-container {
+        grid-template-columns: repeat(3, 1fr); } }
+    @media only screen and (min-width: 960px) {
+      #root .todo-container {
+        grid-template-columns: repeat(4, 1fr); } }
+    @media only screen and (min-width: 1200px) {
+      #root .todo-container {
+        grid-template-columns: repeat(5, 1fr); } }
     #root .todo-container .card {
       position: relative;
       min-height: 90px;
       background: white;
       border-radius: 10px;
       border: 1px solid;
-      transition: all 0.1s ease-in-out; }
+      transition: all 0.1s ease-in-out;
+      min-width: 150px; }
       #root .todo-container .card .card-img-container {
         padding: 10px;
         position: relative;
@@ -218,6 +221,10 @@ body {
     display: none; }
   #root .display-block {
     display: block; }
+  #root .overflow-hidden {
+    overflow: hidden; }
+  #root .height-0 {
+    height: 0px; }
   #root .checkedSvg {
     width: 30px;
     height: 30px;
@@ -232,3 +239,92 @@ body {
     right: 5px;
     top: 5px;
     cursor: pointer; }
+  #root #editActions {
+    z-index: 100;
+    position: fixed;
+    bottom: 20px;
+    min-height: 65px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid black; }
+    #root #editActions button {
+      border-radius: 10px;
+      width: 123px;
+      height: 35px;
+      background: #0c5aec;
+      color: white;
+      cursor: pointer;
+      margin: 0px 5px; }
+      #root #editActions button:hover {
+        background: #0a57e7; }
+      #root #editActions button:active {
+        scale: 0.9; }
+    #root #editActions #deletedBtn {
+      margin-top: 8px;
+      background: red; }
+  #root #modal {
+    max-width: 1260px;
+    width: 95%;
+    position: absolute;
+    background: whiteSmoke;
+    bottom: 10vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 0px; }
+  #root #modal-content {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    margin: 15px auto; }
+    #root #modal-content input {
+      margin-top: 10px;
+      height: 35px;
+      width: 100%;
+      border-radius: 4px;
+      outline: none;
+      padding: 0 5px;
+      border: 2px solid #6495ed87; }
+    #root #modal-content #modal-done-btn {
+      margin-top: 10px;
+      height: 30px;
+      width: 100%;
+      border-radius: 4px;
+      outline: none;
+      border: none;
+      padding: 0 5px;
+      background: #4626f1f7;
+      color: white;
+      transition: 0.3s ease-in-out;
+      cursor: pointer; }
+      #root #modal-content #modal-done-btn:active {
+        scale: 0.9; }
+    #root #modal-content #modal-close {
+      height: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: transparent; }
+  #root .modal-content-show {
+    position: relative;
+    top: -68vh;
+    background: white;
+    box-shadow: 2px 6px 27px 3px #c3cad8;
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 6px;
+    opacity: 1; }
+  #root .modal-content-hide {
+    opacity: 0;
+    top: -30vh;
+    width: 0px;
+    height: 0;
+    overflow: hidden; }

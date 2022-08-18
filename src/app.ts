@@ -3,7 +3,7 @@
 const createBtn = <HTMLButtonElement>document.getElementById("createBtn");
 const title = <HTMLInputElement>document.getElementById("title");
 const description = <HTMLInputElement>document.getElementById("description");
-const editBtn = <HTMLButtonElement>document.getElementById("editBtn");
+const markAllBtn = <HTMLButtonElement>document.getElementById("editBtn");
 const colorSelection = <HTMLSelectElement>(
   document.getElementById("colorSelection")
 );
@@ -16,11 +16,17 @@ const errorTag = <HTMLParagraphElement>(
 const editActionContainer = <HTMLDivElement>(
   document.getElementById("editActions")
 );
+
+const modal = <HTMLDivElement>document.getElementById("modal");
+const modalContent = <HTMLDivElement>document.getElementById("modal-content");
+
 const selectedBtn = <HTMLButtonElement>document.getElementById("selectedBtn");
 const unSelectedBtn = <HTMLButtonElement>(
   document.getElementById("unSelectedBtn")
 );
 const deletedBtn = <HTMLButtonElement>document.getElementById("deletedBtn");
+const updateBtn = <HTMLButtonElement>document.getElementById("updateBtn");
+const modalClose = <HTMLButtonElement>document.getElementById("modal-close");
 
 //interface------------------------------------------------|
 //interface------------------------------------------------|
@@ -42,43 +48,20 @@ enum CardShadowColor {
 
 let selectedItemsId: string[] = [];
 
-class Todo {
-  public static async create(
-    title: string,
-    description: string,
-    colorSelection: string
-  ) {
-    const getTotalItems = this.get();
-    const creteItem = {
-      title,
-      description,
-      colorSelection,
-      id: `#${(new Date().getMilliseconds() + Math.random() * 15).toFixed(0)}`,
-      isSelected: false,
-    };
-    const addedNewItem = [...getTotalItems, creteItem];
-    localStorage.setItem("todoItems", JSON.stringify(addedNewItem));
-  }
-  public static update() {}
-  public static delete() {}
-  public static get(): TodoItems[] {
-    return localStorage.getItem("todoItems")
-      ? JSON.parse(localStorage.getItem("todoItems"))
-      : [];
-  }
-}
-
 window.onload = () => main();
 
 function main() {
   showTodoItems(Todo.get());
 
   createBtn?.addEventListener("click", createHandler);
-  editBtn?.addEventListener("click", markAll);
-  deletedBtn.addEventListener("click", deleteItem);
 
+  markAllBtn?.addEventListener("click", markAll);
+  deletedBtn.addEventListener("click", deleteItem);
   selectedBtn.addEventListener("click", makeItemSelected);
   unSelectedBtn.addEventListener("click", makeItemUnSelected);
+  updateBtn.addEventListener("click", itemUpdate);
+
+  modalClose.addEventListener("click", closeModal);
 }
 
 //items showing handler--------------------------||
@@ -215,19 +198,19 @@ function isShowActionContainer(itemsId: string[]) {
 //markAll-------------------||
 //markAll-------------------||
 function markAll() {
-  const getAttribute = editBtn.getAttribute("data-isActivated");
+  const getAttribute = markAllBtn.getAttribute("data-isActivated");
   if (getAttribute === "false") {
-    editBtn.setAttribute("data-isActivated", "true");
+    markAllBtn.setAttribute("data-isActivated", "true");
     showTodoItems(Todo.get(), true);
   } else if (getAttribute === "true") {
-    editBtn.setAttribute("data-isActivated", "false");
+    markAllBtn.setAttribute("data-isActivated", "false");
     showTodoItems(Todo.get(), false);
   }
 }
 //close mark------------||
 //close mark------------||
 function closeMarkAll() {
-  editBtn.setAttribute("data-isActivated", "false");
+  markAllBtn.setAttribute("data-isActivated", "false");
   showTodoItems(Todo.get(), false);
 }
 
@@ -272,4 +255,78 @@ function deleteItem() {
     showTodoItems(Todo.get(), true);
     isShowActionContainer((selectedItemsId = []));
   });
+}
+
+//item update modal-----------||
+//item update modal-----------||
+function itemUpdate() {
+  if (selectedItemsId.length > 1)
+    return alert("Please select one item for update");
+
+  if (selectedItemsId.length === 0) {
+    return alert("Please select one item for update");
+  }
+
+  modal.className = "modal";
+  modalContent.className = "modal-content-show";
+
+  const newArray = Todo.get();
+  const itmId = selectedItemsId[0];
+
+  const findIndex = Todo.get().findIndex((i) => i.id === itmId);
+
+  const titleValue = newArray[findIndex].title;
+  const descriptionValue = newArray[findIndex].description;
+
+  const inputTitle = <HTMLInputElement>document.getElementById("updateTitle");
+  const inputDescription = <HTMLInputElement>(
+    document.getElementById("updateDescription")
+  );
+
+  inputTitle.value = titleValue;
+  inputDescription.value = descriptionValue;
+
+  document.getElementById("modal-done-btn").onclick = () => {
+    newArray[findIndex].title = inputTitle.value;
+    newArray[findIndex].description = inputDescription.value;
+
+    localStorage.setItem("todoItems", JSON.stringify(newArray));
+    showTodoItems(Todo.get());
+    isShowActionContainer((selectedItemsId = []));
+    closeMarkAll();
+    closeModal();
+  };
+}
+
+//close modal----------||
+//close modal----------||
+function closeModal() {
+  modal.className = "modal overflow-hidden height-0";
+  modalContent.className = "modal-content-hide";
+}
+
+class Todo {
+  public static async create(
+    title: string,
+    description: string,
+    colorSelection: string
+  ) {
+    const getTotalItems = this.get();
+    const creteItem = {
+      title,
+      description,
+      colorSelection,
+      id: `#${(new Date().getMilliseconds() + Math.random() * 15).toFixed(0)}`,
+      isSelected: false,
+    };
+    const addedNewItem = [...getTotalItems, creteItem];
+    localStorage.setItem("todoItems", JSON.stringify(addedNewItem));
+  }
+  public static update() {}
+  public static delete() {}
+  public static get(): TodoItems[] {
+    return localStorage.getItem("todoItems")
+      ? JSON.parse(localStorage.getItem("todoItems"))
+      : [];
+  }
 }
