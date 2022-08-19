@@ -17,6 +17,8 @@ src
  └── app.ts
  └── app.ts
 
+index.html
+
 ```
 
 You must need node js on your machine if you want to customize this application
